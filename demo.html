@@ -6,6 +6,7 @@
 <title>Try Your Own Bot — Atlantic AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
 :root {
   --black: #080C12;
@@ -380,6 +381,46 @@ nav {
 }
 .limit-box-actions .btn-primary { width: auto; }
 
+/* MARKDOWN IN BOT BUBBLES */
+.chat-bubble.bot p { margin-bottom: 8px; }
+.chat-bubble.bot p:last-child { margin-bottom: 0; }
+.chat-bubble.bot strong { color: var(--white); font-weight: 600; }
+.chat-bubble.bot em { font-style: italic; }
+.chat-bubble.bot ul, .chat-bubble.bot ol { padding-left: 20px; margin: 6px 0 8px; }
+.chat-bubble.bot li { margin-bottom: 4px; }
+.chat-bubble.bot code { background: rgba(0,212,255,0.1); color: var(--cyan); padding: 2px 6px; font-size: 12px; font-family: monospace; }
+.chat-bubble.bot h1, .chat-bubble.bot h2, .chat-bubble.bot h3 { font-family: 'Barlow Condensed', sans-serif; color: var(--white); letter-spacing: 1px; margin-bottom: 6px; font-size: 15px; }
+
+/* CHANNEL SELECTOR */
+.channel-group {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border);
+}
+.channel-option { flex: 1; position: relative; }
+.channel-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+.channel-option span {
+  display: block;
+  padding: 13px 8px;
+  text-align: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--silver-dim);
+  background: var(--card);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  border-right: 1px solid var(--border);
+  user-select: none;
+}
+.channel-option:last-child span { border-right: none; }
+.channel-option input[type="radio"]:checked + span {
+  background: var(--cyan-dim);
+  color: var(--cyan);
+}
+.channel-option span:hover { color: var(--silver); }
+
 /* ERROR */
 .error-msg {
   font-size: 13px;
@@ -460,6 +501,27 @@ nav {
         <label class="form-label">Your Biggest Customer Service Challenge</label>
         <textarea class="form-textarea" id="input-pain-points" placeholder="e.g. Answering the same questions repeatedly, capturing leads after hours, booking appointments"></textarea>
       </div>
+      <div class="form-group">
+        <label class="form-label">Preferred Channel</label>
+        <div class="channel-group">
+          <label class="channel-option">
+            <input type="radio" name="channel" value="Website chat" checked>
+            <span>Website Chat</span>
+          </label>
+          <label class="channel-option">
+            <input type="radio" name="channel" value="WhatsApp">
+            <span>WhatsApp</span>
+          </label>
+          <label class="channel-option">
+            <input type="radio" name="channel" value="Both">
+            <span>Both</span>
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Conversation Context <span style="color:var(--silver-dim);font-size:9px;letter-spacing:1px;text-transform:none;">(optional)</span></label>
+        <textarea class="form-textarea" id="input-conv-context" style="min-height:80px;" placeholder="e.g. Customer clicks chat after viewing a property listing, or Customer messages after seeing an ad"></textarea>
+      </div>
       <p class="error-msg" id="step1-error"></p>
       <button class="btn-primary" id="btn-generate">Build My Bot →</button>
       <p class="btn-note">Takes 30 seconds. We generate a custom AI assistant built around your specific business.</p>
@@ -509,6 +571,8 @@ nav {
 </div>
 
 <script>
+marked.use({ breaks: true, gfm: true });
+
 const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
   ? 'http://localhost:3001'
   : 'https://app.atlanticaiautomation.com';
@@ -534,6 +598,8 @@ function goToStep(n) {
 document.getElementById('btn-generate').addEventListener('click', async () => {
   const industry = document.getElementById('input-industry').value.trim();
   const painPoints = document.getElementById('input-pain-points').value.trim();
+  const channel = document.querySelector('input[name="channel"]:checked')?.value || 'Website chat';
+  const convContext = document.getElementById('input-conv-context').value.trim();
   const errEl = document.getElementById('step1-error');
 
   if (!industry) {
@@ -555,7 +621,7 @@ document.getElementById('btn-generate').addEventListener('click', async () => {
     const res = await fetch(`${API_BASE}/api/demo/generate-prompt`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ industry, painPoints })
+      body: JSON.stringify({ industry, painPoints, channel, convContext })
     });
 
     const data = await res.json();
@@ -611,7 +677,11 @@ function appendBubble(role, text) {
   const messages = document.getElementById('chat-messages');
   const bubble = document.createElement('div');
   bubble.className = `chat-bubble ${role}`;
-  bubble.textContent = text;
+  if (role === 'bot') {
+    bubble.innerHTML = marked.parse(text);
+  } else {
+    bubble.textContent = text;
+  }
   messages.appendChild(bubble);
   messages.scrollTop = messages.scrollHeight;
   return bubble;
