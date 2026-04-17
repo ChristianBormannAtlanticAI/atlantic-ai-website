@@ -585,6 +585,162 @@ footer {
 }
 .footer-links a:hover { color: var(--cyan); }
 
+/* PRICING */
+.pricing { background: var(--dark); }
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-top: 64px;
+  border: 1px solid var(--border);
+}
+.pricing-card {
+  background: var(--dark);
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s;
+}
+.pricing-card.featured {
+  background: var(--card);
+}
+.pricing-card.featured::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--cyan);
+}
+.pricing-card:hover { background: var(--card); }
+.pricing-tier {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 16px;
+}
+.pricing-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.pricing-tagline {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--silver-dim);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+.pricing-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.pricing-price-note {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--silver-dim);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+.pricing-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex: 1;
+}
+.pricing-features li {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--silver);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+}
+.pricing-features li::before {
+  content: '';
+  width: 4px; height: 4px;
+  background: var(--cyan);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+.pricing-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--black);
+  background: var(--cyan);
+  border: none;
+  padding: 14px 32px;
+  cursor: none;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: opacity 0.2s;
+}
+.pricing-cta:hover { opacity: 0.85; }
+.pricing-cta.ghost {
+  color: var(--cyan);
+  background: transparent;
+  border: 1px solid var(--border-bright);
+}
+.pricing-cta.ghost:hover { border-color: var(--cyan); }
+
+/* POPI TRUST */
+.popi-trust {
+  padding: 64px 60px;
+  background: var(--black);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+.popi-content { max-width: 720px; }
+.popi-heading {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 12px;
+}
+.popi-text {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--silver-dim);
+}
+.popi-link {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(0,212,255,0.3);
+  padding-bottom: 2px;
+  transition: border-color 0.2s;
+  flex-shrink: 0;
+}
+.popi-link:hover { border-color: var(--cyan); }
+
 /* ANIMATIONS */
 .fade-up {
   opacity: 0;
@@ -622,6 +778,7 @@ footer {
     <li><a href="#services">Services</a></li>
     <li><a href="#process">Process</a></li>
     <li><a href="#industries">Industries</a></li>
+    <li><a href="#pricing">Pricing</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Get Started</a>
@@ -863,6 +1020,65 @@ footer {
   </div>
 </section>
 
+<section class="pricing" id="pricing">
+  <div class="section-eyebrow">
+    <div class="section-eyebrow-line"></div>
+    <span class="section-eyebrow-text">Investment</span>
+  </div>
+  <h2 class="section-title">Simple, Transparent Pricing</h2>
+  <p class="section-sub">Every plan includes WhatsApp integration, lead capture, conversation history, and your own admin portal.</p>
+  <div class="pricing-grid">
+    <div class="pricing-card fade-up">
+      <div class="pricing-tier">Starter</div>
+      <div class="pricing-name">Starter</div>
+      <div class="pricing-tagline">Entry level customer service and lead capture for growing businesses.</div>
+      <div class="pricing-price">R2,500</div>
+      <div class="pricing-price-note">/month &nbsp;·&nbsp; Token usage billed separately based on conversation volume</div>
+      <ul class="pricing-features">
+        <li>WhatsApp Business API integration</li>
+        <li>Lead capture & contact management</li>
+        <li>Full conversation history</li>
+        <li>Admin portal access</li>
+        <li>Custom AI system prompt</li>
+        <li>Email support</li>
+      </ul>
+      <a href="#contact" class="pricing-cta ghost">Get Started</a>
+    </div>
+    <div class="pricing-card featured fade-up">
+      <div class="pricing-tier">Most Popular</div>
+      <div class="pricing-name">Growth</div>
+      <div class="pricing-tagline">Everything in Starter plus analytics, lead scoring, and weekly performance reports.</div>
+      <div class="pricing-price">R5,000</div>
+      <div class="pricing-price-note">/month &nbsp;·&nbsp; Token usage billed separately based on conversation volume</div>
+      <ul class="pricing-features">
+        <li>Everything in Starter</li>
+        <li>Conversation analytics dashboard</li>
+        <li>Lead scoring & prioritisation</li>
+        <li>Weekly performance reports</li>
+        <li>Multi-language support</li>
+        <li>Priority email support</li>
+      </ul>
+      <a href="#contact" class="pricing-cta">Get Started</a>
+    </div>
+    <div class="pricing-card fade-up">
+      <div class="pricing-tier">Enterprise</div>
+      <div class="pricing-name">Intelligence</div>
+      <div class="pricing-tagline">Everything in Growth plus full business analytics, revenue pipeline tracking, and priority support.</div>
+      <div class="pricing-price">R8,000</div>
+      <div class="pricing-price-note">/month &nbsp;·&nbsp; Token usage billed separately based on conversation volume</div>
+      <ul class="pricing-features">
+        <li>Everything in Growth</li>
+        <li>Full business analytics suite</li>
+        <li>Revenue pipeline tracking</li>
+        <li>CRM integrations</li>
+        <li>Dedicated account manager</li>
+        <li>Priority support & SLA</li>
+      </ul>
+      <a href="#contact" class="pricing-cta ghost">Get Started</a>
+    </div>
+  </div>
+</section>
+
 <section class="contact" id="contact">
   <div class="section-eyebrow">
     <div class="section-eyebrow-line"></div>
@@ -878,7 +1094,7 @@ footer {
         </div>
         <div>
           <div class="contact-item-label">Email</div>
-          <div class="contact-item-value">hello@atlanticai.co.za</div>
+          <div class="contact-item-value">reece@atlanticaiautomation.com</div>
         </div>
       </div>
       <div class="contact-item fade-up">
@@ -887,7 +1103,7 @@ footer {
         </div>
         <div>
           <div class="contact-item-label">WhatsApp</div>
-          <div class="contact-item-value">+27 [xxx] xxx xxxx</div>
+          <div class="contact-item-value"><a href="https://wa.me/27676381778" style="color: var(--white); text-decoration: none;" onmouseenter="this.style.color='var(--cyan)'" onmouseleave="this.style.color='var(--white)'">+27 67 638 1778</a></div>
         </div>
       </div>
       <div class="contact-item fade-up">
@@ -948,13 +1164,22 @@ footer {
   </div>
 </section>
 
+<div class="popi-trust">
+  <div class="popi-content">
+    <div class="popi-heading">Your Data Is Safe With Us</div>
+    <p class="popi-text">Atlantic AI is fully compliant with the Protection of Personal Information Act (POPIA). We never sell or share your data with third parties without your explicit consent, and all information is stored on secure, encrypted infrastructure. Your privacy is not an afterthought — it is built into everything we build.</p>
+  </div>
+  <a href="privacy.html" class="popi-link">Read our full Data &amp; Privacy Policy →</a>
+</div>
+
 <footer>
   <div class="footer-copy">© 2026 Atlantic AI Digital Solutions. All rights reserved.</div>
   <ul class="footer-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#process">Process</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#">Privacy Policy</a></li>
+    <li><a href="privacy.html">Privacy Policy</a></li>
+    <li><a href="terms.html">Terms of Service</a></li>
   </ul>
 </footer>
 
