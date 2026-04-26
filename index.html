@@ -212,10 +212,10 @@ nav {
 }
 .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
 .hero-stats {
-  position: absolute;
-  right: 60px; bottom: 80px;
+  position: relative;
   display: flex; flex-direction: column; gap: 24px;
-  z-index: 2;
+  align-items: flex-end;
+  margin-top: 48px;
 }
 .hero-stat {
   text-align: right;
@@ -904,15 +904,11 @@ footer {
   .hero-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
   .btn-primary, .btn-ghost { width: 100%; }
   .hero-stats {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 16px 32px;
-    justify-content: flex-start;
-    background: none;
+    align-items: flex-start;
+    margin-top: 24px;
   }
   .hero-stat { flex: 0 0 auto; }
   .hero-stat-num { font-size: 28px; }
