@@ -907,11 +907,14 @@ footer {
     position: relative;
     right: auto;
     bottom: auto;
+    display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    gap: 24px;
     flex-wrap: wrap;
+    gap: 16px 32px;
+    justify-content: flex-start;
+    background: none;
   }
+  .hero-stat { flex: 0 0 auto; }
   .hero-stat-num { font-size: 28px; }
 
   .services-grid { grid-template-columns: 1fr; }
