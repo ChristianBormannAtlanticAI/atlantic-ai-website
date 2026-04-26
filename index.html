@@ -824,6 +824,124 @@ footer {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* MOBILE NAV HAMBURGER */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+.nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--cyan);
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: rgba(8,12,18,0.97);
+  align-items: center;
+  justify-content: center;
+}
+.nav-open .nav-mobile-menu { display: flex; }
+.nav-mobile-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+.nav-mobile-menu ul a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 24px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--silver);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-mobile-menu ul a:hover { color: var(--cyan); }
+.nav-mobile-menu .mobile-get-started {
+  color: var(--cyan);
+  border: 1px solid var(--cyan);
+  padding: 12px 32px;
+}
+
+/* TOUCH DEVICE CURSOR */
+@media (pointer: coarse) {
+  body { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+}
+
+/* PROCESS — intermediate breakpoints */
+@media (max-width: 1024px) {
+  .process-steps { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .process-steps { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* MOBILE — 768px and below */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links, .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+
+  section { padding: 80px 20px; }
+
+  .hero { padding: 100px 20px 60px; }
+  .hero-title { font-size: clamp(56px, 14vw, 130px); }
+  .hero-sub { font-size: 16px; }
+  .hero-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .btn-primary, .btn-ghost { width: 100%; }
+  .hero-stats {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .hero-stat-num { font-size: 28px; }
+
+  .services-grid { grid-template-columns: 1fr; }
+  .service-card { padding: 32px 24px; }
+  .service-name { font-size: 18px; }
+
+  .process-steps::before { display: none; }
+  .process-step { padding-bottom: 24px; }
+
+  .why-grid { grid-template-columns: 1fr; gap: 48px; }
+  .why-visual { aspect-ratio: auto; min-height: 200px; }
+
+  .industries-grid { grid-template-columns: repeat(2, 1fr); }
+  .industry-card { padding: 28px 20px; }
+
+  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-card { padding: 36px 28px; }
+
+  .demo-cta-inner { grid-template-columns: 1fr; padding: 40px 28px; }
+  .btn-demo { width: 100%; text-align: center; }
+
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .form-row { grid-template-columns: 1fr; }
+
+  .popi-trust { flex-direction: column; gap: 20px; padding: 40px 20px; }
+  .popi-link { white-space: normal; }
+
+  footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 20px; }
+  .footer-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+}
 </style>
 </head>
 <body>
@@ -856,7 +974,20 @@ footer {
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Get Started</a>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
+
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="demo.html">Try Demo</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact" class="mobile-get-started">Get Started</a></li>
+  </ul>
+</div>
 
 <section class="hero" id="home">
   <div class="hero-grid"></div>
@@ -877,19 +1008,19 @@ footer {
       <a href="#contact" class="btn-primary">Start Your Project</a>
       <a href="#services" class="btn-ghost">View Services</a>
     </div>
-  </div>
-  <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="hero-stat-num">48H</div>
-      <div class="hero-stat-label">Deployment Time</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">3</div>
-      <div class="hero-stat-label">Service Pillars</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">24/7</div>
-      <div class="hero-stat-label">AI Availability</div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">48H</div>
+        <div class="hero-stat-label">Deployment Time</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Service Pillars</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">24/7</div>
+        <div class="hero-stat-label">AI Availability</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1295,6 +1426,15 @@ document.querySelectorAll('a, button, .service-card, .industry-card').forEach(el
   el.addEventListener('mouseleave', () => {
     cursor.style.transform = 'scale(1)';
     ring.style.width = '32px'; ring.style.height = '32px';
+  });
+});
+const hamburger = document.getElementById('navHamburger');
+hamburger.addEventListener('click', () => {
+  document.body.classList.toggle('nav-open');
+});
+document.querySelectorAll('#navMobileMenu a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.body.classList.remove('nav-open');
   });
 });
 const observer = new IntersectionObserver(entries => {
